@@ -1,0 +1,46 @@
+program     ->  declaration
+
+declaration ->  varDeclaration
+            |   functionDeclaration
+
+functionDeclaration -> "func" IDENTIFIER "("  parameters?  ")" block
+
+varDeclaration -> "var" IDENTIFIER "=" expressionStatement
+                |   "var" IDENTIFIER ";"
+
+
+block -> "{"  statement* "}"
+
+statement ->    forStatement
+            |   ifStatement
+            |   whileStatement
+            |   expressionStatement
+
+forStatement ->  "for" "(" (varDeclaration | expressionStatement |  ";")  (expressionStatement)? ";" (expressionStatement)? ")" block
+
+expressionStatement -> expression ";"
+
+expression -> BOOL | STRING | IDENTIFIER | DIGIT | "(" expression ")"
+
+
+
+parameters -> IDENTIFIER ("," IDENTIFIER )? 
+
+IDENTIFIER -> ALPHA(ALPHA | DIGIT)* 
+
+ALPHA -> [a-z] | [A-Z]
+
+STRING -> [\"](ALPHA)?(DIGIT)? | [/][*]+ (ALPHA)?(DIGIT)? [*][/] 
+
+BOOL -> "true" | "false" 
+
+DIGIT -> DECIMALDIGIT | HEXDIGIT | BINARYDIGIT | FLOATDIGIT
+
+DECIMALDIGIT -> [0-9]
+
+HEXDIGIT -> 0[x | X][0-9a-fA-F]+
+
+BINARYDIGIT -> 0[b | B][0-1]+
+
+FLOATDIGIT -> DECIMALDIGIT "." DECIMALDIGIT
+             
