@@ -1,4 +1,4 @@
-program     ->  declaration
+program     ->  declaration EOF
 
 declaration ->  varDeclaration
             |   functionDeclaration
@@ -15,18 +15,54 @@ statement ->    forStatement
             |   ifStatement
             |   whileStatement
             |   expressionStatement
+            |   returnStatement
 
 forStatement ->  "for" "(" (varDeclaration | expressionStatement |  ";")  (expressionStatement)? ";" (expressionStatement)? ")" block
 
 expressionStatement -> expression ";"
 
-expression -> BOOL | STRING | IDENTIFIER | DIGIT | "(" expression ")"
+ifStatement -> "if" "(" expression ")" block ("else" block)?
 
+whileStatement -> "while" "(" expression ")" block
 
+returnStatement -> "return" expression ";" 
+
+expression -> BOOL | STRING | IDENTIFIER | DIGIT | LIST | CALL | BINARY | UNARY |"(" expression ")"
 
 parameters -> IDENTIFIER ("," IDENTIFIER )? 
 
 IDENTIFIER -> ALPHA(ALPHA | DIGIT)* 
+
+LIST -> IDENTIFIER "[" expression ("," expression)? "]" 
+
+CALL -> IDENTIFIER "(" expression ("," expression)? ")"
+
+BINARY -> expression "+" expression
+        | expression "-" expression
+        | expression "*" expression
+        | expression "/" expression
+        | expression "+=" expression
+        | expression "-=" expression
+        | expression "/=" expression
+        | expression "*=" expression
+        | expression "&&" expression
+        | expression "||" expression
+        | expression "!=" expression
+        | expression "==" expression
+        | expression ">=" expression
+        | expression "<=" expression
+
+
+UNARY -> "!" expression
+        | "--" expression
+        | "++" expression
+        | "~" expression
+
+POSTEXPR -> expression "--"
+        | expression "++"
+
+TENARY -> expression "?" expression ":" expression
+
 
 ALPHA -> [a-z] | [A-Z]
 

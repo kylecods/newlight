@@ -1,2 +1,7 @@
 build
+MakeFile
 CMakeLists.*
+CMakeCache.*
+CMakeFiles
+parser.output
+*.json
